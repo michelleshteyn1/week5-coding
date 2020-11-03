@@ -54,6 +54,59 @@ chinstraps %>%
 ```
 
 
+Get vectors of body_mass_g for female and male chinstrap penguins separately.
+
+```{r}
+chinstraps_f<-chinstraps %>% 
+  filter(sex == "female") %>% 
+  pull(body_mass_g)
+
+chinstraps_m<-chinstraps %>% 
+  filter(sex == "male") %>% 
+  pull(body_mass_g)
+```
+
+
+### T-tests, a couple of different ways
+
+1. Is there a significant difference in body mass between male and female chinstrap penguins?
+
+```{r}
+chinstrap_ttest<- t.test(chinstraps_f, chinstraps_m)
+chinstrap_ttest
+
+cohen.d(chinstraps_f,chinstraps_m)
+```
+
+The p value is the probability that I could have gotten sample means that are at least as different as ours are by random chance if they were drawn from populations with the same mean.
+
+
+Are male chinstrap penguins significantly larger (body mass) than female chinstrap penguins?
+
+```{r}
+t.test(chinstraps_m,chinstraps_f, alternative = "greater")
+```
+Yes, I will reject the null hypothesis that the means difference is not greater than 0 and retain the alternative hypothesis that the means difference in body mass is greater than zero.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
