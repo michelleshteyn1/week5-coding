@@ -1,0 +1,73 @@
+---
+title: "Penguins size comparisons"
+author: "Michelle Shteyn"
+date: "11/2/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(palmerpenguins)
+library(effsize)
+library(broom)
+library(ggbeeswarm)
+library(car)
+```
+
+
+# Part 1. T-tests
+
+Mass comparison: male & female chinstrap penguins
+
+```{r}
+chinstraps<-penguins %>% 
+  filter(species == "Chinstrap")
+
+# Histograms
+ggplot(data = chinstraps, aes(x=body_mass_g)) +
+  geom_histogram(bins = 10) +
+  facet_wrap(~sex)
+
+#here you can see the mean body mass for males is closer to 4000, while for females it's closer to 3500
+
+
+# QQ plot
+ggplot(data = chinstraps, aes(sample = body_mass_g)) +
+  geom_qq() +
+  facet_wrap(~sex)
+
+#these are as close to normally distributed as you can hope real-world data will actually get
+
+## Get descriptive statistics
+chinstraps %>% 
+  group_by(sex) %>% 
+  summarize(
+    mean_mass = mean(body_mass_g),
+    median_mass = median(body_mass_g),
+    sd_mass = sd(body_mass_g),
+    sample_size = n()
+  )
+
+#median is similar to mean, which reflects that symmetric distribution we saw in the histograms
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
